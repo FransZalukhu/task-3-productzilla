@@ -4,7 +4,7 @@ import path from "path";
 
 const algorithm = "aes-256-cbc";
 const ivLength = 16;
-const logDir = "logs"; // Direktori untuk menyimpan file log
+const logDir = "logs";
 
 async function log(message: string): Promise<void> {
   const now = new Date();
@@ -13,11 +13,10 @@ async function log(message: string): Promise<void> {
   }_${now.getDate()}_${now.getFullYear()}.log`;
   const logPath = path.join(logDir, logFile);
 
-  // Buat direktori logs jika belum ada
   try {
     await fs.mkdir(logDir, { recursive: true });
   } catch (error) {
-    // Abaikan error jika direktori sudah ada
+    //
   }
 
   await fs.appendFile(logPath, `${message}\n`);
@@ -58,7 +57,6 @@ async function decrypt(inputPath: string, password: string): Promise<void> {
       decipher.final(),
     ]);
 
-    // Perbaikan path file output
     const dirname = path.dirname(inputPath);
     const basename = path.basename(inputPath);
     const outputPath = path.join(
