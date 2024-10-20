@@ -58,7 +58,14 @@ async function decrypt(inputPath: string, password: string): Promise<void> {
       decipher.final(),
     ]);
 
-    const outputPath = inputPath.replace("_encrypted.txt", ".txt");
+    // Perbaikan path file output
+    const dirname = path.dirname(inputPath);
+    const basename = path.basename(inputPath);
+    const outputPath = path.join(
+      dirname,
+      basename.replace("_encrypted.txt", "_decrypted.txt")
+    );
+
     await fs.writeFile(outputPath, decrypted);
     console.log(`File berhasil didekripsi: ${outputPath}`);
   } catch (error) {
